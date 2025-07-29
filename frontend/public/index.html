@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#1976d2" />
+  <meta name="description" content="InTutela CRM - Sistema di gestione clienti e pratiche" />
+  <meta name="keywords" content="CRM, gestionale, clienti, pratiche, InTutela" />
+  <meta name="author" content="InTutela" />
+  
+  <!-- Preconnect to external resources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  
+  <!-- Apple Touch Icon -->
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="InTutela CRM" />
+  <meta property="og:description" content="Sistema di gestione clienti e pratiche" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="%PUBLIC_URL%/logo512.png" />
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="InTutela CRM" />
+  <meta name="twitter:description" content="Sistema di gestione clienti e pratiche" />
+  
+  <!-- Security Headers -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  
+  <title>InTutela CRM - Sistema Gestionale</title>
+  
+  <!-- Loading styles -->
+  <style>
+    /* Initial loading screen */
+    .initial-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      font-family: 'Roboto', Arial, sans-serif;
+    }
+    
+    .loader-content {
+      text-align: center;
+      color: white;
+    }
+    
+    .loader-logo {
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2rem;
+      font-weight: bold;
+      animation: pulse 2s infinite;
+    }
+    
+    .loader-text {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .loader-subtitle {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 30px;
+    }
+    
+    .loader-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Hide loader when React loads */
+    .app-loaded .initial-loader {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <noscript>
+    <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+      <h1>JavaScript Richiesto</h1>
+      <p>È necessario abilitare JavaScript per utilizzare InTutela CRM.</p>
+      <p>Please enable JavaScript to run this application.</p>
+    </div>
+  </noscript>
+  
+  <!-- Initial loading screen -->
+  <div class="initial-loader" id="initial-loader">
+    <div class="loader-content">
+      <div class="loader-logo">IT</div>
+      <div class="loader-text">InTutela CRM</div>
+      <div class="loader-subtitle">Caricamento in corso...</div>
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
+  
+  <!-- React app container -->
+  <div id="root"></div>
+  
+  <!-- Remove loader when React loads -->
+  <script>
+    // Remove initial loader when React app loads
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.body.classList.add('app-loaded');
+        const loader = document.getElementById('initial-loader');
+        if (loader) {
+          loader.style.opacity = '0';
+          loader.style.transition = 'opacity 0.5s ease';
+          setTimeout(() => loader.remove(), 500);
+        }
+      }, 1000);
+    });
+    
+    // Handle loading errors
+    window.addEventListener('error', function(e) {
+      console.error('Application error:', e.error);
+      const loader = document.getElementById('initial-loader');
+      if (loader) {
+        loader.innerHTML = `
+          <div class="loader-content">
+            <div class="loader-logo">⚠️</div>
+            <div class="loader-text">Errore di Caricamento</div>
+            <div class="loader-subtitle">Si è verificato un errore. Ricarica la pagina.</div>
+            <button onclick="window.location.reload()" style="
+              background: white; 
+              color: #667eea; 
+              border: none; 
+              padding: 12px 24px; 
+              border-radius: 8px; 
+              font-weight: 600; 
+              cursor: pointer;
+              margin-top: 20px;
+            ">
+              Ricarica Pagina
+            </button>
+          </div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>
